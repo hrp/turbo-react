@@ -1,18 +1,8 @@
 "use strict";
 
-if (global.Turbolinks === undefined) {
-  throw "Missing Turbolinks dependency. TurboReact requires Turbolinks be included before it.";
-}
-
 var HTMLtoJSX = require("htmltojsx");
 var JSXTransformer = require("react-tools");
 var React = require("react");
-
-// Disable the Turbolinks page cache to prevent Tlinks from storing versions of
-// pages with `react-id` attributes in them. When popping off the history, the
-// `react-id` attributes cause React to treat the old page like a pre-rendered
-// page and breaks diffing.
-global.Turbolinks.pagesCached(0);
 
 // `documentElement.replaceChild` must be called in the context of the
 // `documentElement`. Keep a bound reference to use later.
@@ -26,6 +16,7 @@ var TurboReact = {
   version: TURBO_REACT_VERSION,
 
   applyDiff: function(replacementElement, targetElement) {
+    console.log('TurboReact is in play');
     try {
       var bod = TurboReact.reactize(replacementElement);
       React.render(bod, targetElement);
